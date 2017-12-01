@@ -32,7 +32,9 @@ export class DefaultCommentsToTree
   ): U[]
   {
     const preparedComments: U[] = this.transform(allCommentsFromDb);
+    const length = preparedComments.length;
     const commentsTree: U[] = [];
+
 
     preparedComments.forEach( (comment, index) =>
     {
@@ -40,7 +42,7 @@ export class DefaultCommentsToTree
       {
         let parent: U;
 
-        for(let i = index + 1; i < preparedComments.length; i++)
+        for(let i = index + 1; i < length; i++)
         {
           const testComment = preparedComments[i];
 
