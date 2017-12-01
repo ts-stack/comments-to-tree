@@ -8,16 +8,16 @@ A micro utility that converts a one-dimensional array with comments into a comme
 // We need the comments come from a database with such properties, at least.
 interface DefaultCommentFromDb
 {
-  commentId: number;
-  parentId?: number;
+  commentId: number | string;
+  parentId?: number | string;
 }
 
 // This utility will convert comments from the database to comments with this interface.
 interface DefaultComment
 {
-  commentId: number;
+  commentId: number | string;
   children: this[];
-  parentId?: number;
+  parentId?: number | string;
   parent?: this;
 }
 ```
@@ -28,7 +28,7 @@ This utility has one public method:
 static getTree<T extends DefaultCommentFromDb, U extends DefaultComment>
 (
   allCommentsFromDb: T[],
-  actio nRoot: 'unshift' | 'push',
+  actionRoot: 'unshift' | 'push',
   actionChild: 'unshift' | 'push'
 ): U[];
 ```

@@ -1,14 +1,14 @@
 export interface DefaultCommentFromDb
 {
-  commentId: number;
-  parentId?: number;
+  commentId: number | string;
+  parentId?: number | string;
 }
 
 export interface DefaultComment
 {
-  commentId: number;
+  commentId: number | string;
   children: this[];
-  parentId?: number;
+  parentId?: number | string;
   parent?: this;
 }
 
