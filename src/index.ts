@@ -7,10 +7,9 @@ export interface DefaultCommentFromDb
 export interface DefaultComment
 {
   commentId: number;
-  children: DefaultComment[];
+  children: this[];
   parentId?: number;
-  parent?: DefaultComment;
-  [key: string]: any;
+  parent?: this;
 }
 
 export type ActionArray = 'unshift' | 'push';
@@ -23,21 +22,21 @@ export class DefaultCommentsToTree
    * @param actionRoot The action you need to apply to insert a root comment.
    * @param actionChild The action you need to apply to insert a child comment.
    */
-  static getTree
+  static getTree<T extends DefaultCommentFromDb, U extends DefaultComment>
   (
-    allCommentsFromDb: DefaultCommentFromDb[],
+    allCommentsFromDb: T[],
     actionRoot: ActionArray = 'unshift',
     actionChild: ActionArray = 'unshift'
-  ): DefaultComment[]
+  ): U[]
   {
     const preparedComments = this.transform(allCommentsFromDb);
-    const commentsTree: DefaultComment[] = [];
+    const commentsTree: U[] = [];
 
     preparedComments.forEach( (comment, index) =>
     {
       if(comment.parentId)
       {
-        let parent: DefaultComment;
+        let parent: U;
 
         for(let i = index + 1; i < preparedComments.length; i++)
         {
@@ -69,7 +68,7 @@ export class DefaultCommentsToTree
    * Transforms comments that came from a database in a one-dimensional array,
    * to comments in a one-dimensional array that have some additional properties.
    */
-  protected static transform(allCommentsFromDb: DefaultCommentFromDb[]): DefaultComment[]
+  protected static transform(allCommentsFromDb: any[]): any[]
   {
     return allCommentsFromDb.map(commentFromDb =>
     {

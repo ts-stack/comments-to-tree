@@ -49,7 +49,7 @@ describe(`CommentsToTree`, () =>
       {commentId: 1, parentId: 0, children: [], someOtherProperty: 'some content'}
     ];
 
-    const actualArray = CommentsToTree.getTree(commentFromDb);
+    const actualArray = CommentsToTree.getTree<CommentFromDb, Comment>(commentFromDb);
 
     expect(JSON.stringify(actualArray)).toEqual(JSON.stringify(expectedArray));
   });
@@ -74,7 +74,7 @@ describe(`CommentsToTree`, () =>
       }
     ];
 
-    const result = CommentsToTree.getTree(commentFromDb, 'unshift', 'unshift');
+    const result = CommentsToTree.getTree<CommentFromDb, Comment>(commentFromDb, 'unshift', 'unshift');
 
     expect(result.length).toEqual(2);
     expect(result[0].commentId).toEqual(1);
