@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/KostyaTretyak/comments-to-tree.svg?branch=master)](https://travis-ci.org/KostyaTretyak/comments-to-tree)
+
 # What is this for?
 
 A micro utility that converts a one-dimensional array with comments into a comments tree.
@@ -51,7 +53,7 @@ npm install comments-to-tree --save
 
 ## Usage
 
-First of all, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected method `transform`:
+First of all, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected method `transform()`:
 
 ```ts
 import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from 'comments-to-tree';
