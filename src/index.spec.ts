@@ -39,7 +39,7 @@ describe(`CommentsToTree`, () =>
 
   it(`should create properly structure`, () =>
   {
-    const commentFromDb: CommentFromDb[] =
+    const allCommentsFromDb: CommentFromDb[] =
     [
       {commentId: 1, someOtherPropertyFromDb: 'some content'}
     ];
@@ -49,14 +49,14 @@ describe(`CommentsToTree`, () =>
       {commentId: 1, parentId: 0, children: [], someOtherProperty: 'some content'}
     ];
 
-    const actualArray = CommentsToTree.getTree<CommentFromDb, Comment>(commentFromDb);
+    const actualArray = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
 
     expect(JSON.stringify(actualArray)).toEqual(JSON.stringify(expectedArray));
   });
 
   it(`should create tree comments`, () =>
   {
-    const commentFromDb: CommentFromDb[] =
+    const allCommentsFromDb: CommentFromDb[] =
     [
       {commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5'},
       {commentId: 4, someOtherPropertyFromDb: 'root comment4'},
@@ -65,16 +65,7 @@ describe(`CommentsToTree`, () =>
       {commentId: 1, someOtherPropertyFromDb: 'root comment1'},
     ];
 
-    const comment: Comment[] =
-    [
-      {
-        commentId: 1,
-        children: [{commentId: 2, parentId: 1, children: [], someOtherProperty: ``}],
-        someOtherProperty: ``
-      }
-    ];
-
-    const result = CommentsToTree.getTree<CommentFromDb, Comment>(commentFromDb, 'unshift', 'unshift');
+    const result = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb, 'unshift', 'unshift');
 
     expect(result.length).toEqual(2);
     expect(result[0].commentId).toEqual(1);

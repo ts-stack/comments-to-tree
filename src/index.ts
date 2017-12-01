@@ -17,8 +17,10 @@ export type ActionArray = 'unshift' | 'push';
 export class DefaultCommentsToTree
 {
   /**
+   * Converts a one-dimensional array of comments into a comments tree.
+   * The array must be sorted in reverse order - at its beginning there are the most recent comments.
    * 
-   * @param allCommentsFromDb One-dimensional array of comments from the database.
+   * @param allCommentsFromDb One-dimensional array of comments from the database (the array sorted in reverse order).
    * @param actionRoot The action you need to apply to insert a root comment.
    * @param actionChild The action you need to apply to insert a child comment.
    */
@@ -29,7 +31,7 @@ export class DefaultCommentsToTree
     actionChild: ActionArray = 'unshift'
   ): U[]
   {
-    const preparedComments = this.transform(allCommentsFromDb);
+    const preparedComments: U[] = this.transform(allCommentsFromDb);
     const commentsTree: U[] = [];
 
     preparedComments.forEach( (comment, index) =>
@@ -68,7 +70,7 @@ export class DefaultCommentsToTree
    * Transforms comments that came from a database in a one-dimensional array,
    * to comments in a one-dimensional array that have some additional properties.
    */
-  protected static transform(allCommentsFromDb: any[]): any[]
+  protected static transform(allCommentsFromDb: DefaultCommentFromDb[]): any[]
   {
     return allCommentsFromDb.map(commentFromDb =>
     {
