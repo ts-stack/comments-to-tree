@@ -1,0 +1,29 @@
+{
+  "name": "comments-to-tree",
+  "version": "1.0.0-beta.1",
+  "description": "A micro utility that converts a one-dimensional array with comments into a comments tree",
+  "main": "dist/index",
+  "typings": "src/index",
+  "directories": {
+    "lib": "src"
+  },
+  "format": "es2015",
+  "homepage": "https://github.com/KostyaTretyak/comments-to-tree",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KostyaTretyak/comments-to-tree.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KostyaTretyak/comments-to-tree/issues"
+  },
+  "keywords": [
+    "nested-comments",
+    "comments-tree"
+  ],
+  "author": "Костя Третяк <ktretiak.in.ua@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jasmine": "^2.8.2",
+    "jasmine": "^2.8.0"
+  }
+}
