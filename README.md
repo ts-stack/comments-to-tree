@@ -41,6 +41,12 @@ Please do not be afraid =). It's easy to use this method.
 `actionRoot` - the action you need to apply to insert a root comment. By default `unshift`
 `actionChild` - the action you need to apply to insert a child comment. By default `unshift`
 
+## Install
+
+```bash
+npm install comments-to-tree --save
+```
+
 ## Usage
 
 First of all, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected method `transform`:
@@ -78,5 +84,5 @@ class CommentsToTree extends DefaultCommentsToTree
   }
 }
 
-const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb, 'unshift', 'unshift');
+const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
 ```
