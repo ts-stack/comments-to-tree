@@ -88,5 +88,14 @@ class CommentsToTree extends DefaultCommentsToTree
   }
 }
 
+const allCommentsFromDb: CommentFromDb[] =
+[
+  {commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5'},
+  {commentId: 4, someOtherPropertyFromDb: 'root comment4'},
+  {commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3'},
+  {commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2'},
+  {commentId: 1, someOtherPropertyFromDb: 'root comment1'},
+];
+
 const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
 ```

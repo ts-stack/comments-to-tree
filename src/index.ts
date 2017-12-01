@@ -35,7 +35,6 @@ export class DefaultCommentsToTree
     const length = preparedComments.length;
     const commentsTree: U[] = [];
 
-
     preparedComments.forEach( (comment, index) =>
     {
       if(comment.parentId)
