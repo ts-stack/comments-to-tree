@@ -38,8 +38,10 @@ Please do not be afraid =). It's easy to use this method.
 `CommentsToTree.getTree()` - converts a one-dimensional array of comments into a comments tree. The array must be sorted in reverse order - at its beginning there are the most recent comments.
 
 `allCommentsFromDb` - one-dimensional array of comments from the database (the array sorted in reverse order).
-`actionRoot` - the action you need to apply to insert a root comment. By default `unshift`
-`actionChild` - the action you need to apply to insert a child comment. By default `unshift`
+
+`actionRoot` - the action you need to apply to insert a root comment. By default `unshift`.
+
+`actionChild` - the action you need to apply to insert a child comment. By default `unshift`.
 
 ## Install
 
