@@ -39,23 +39,19 @@ export class DefaultCommentsToTree
     {
       if(comment.parentId)
       {
-        let parent: U;
-
         for(let i = index + 1; i < length; i++)
         {
-          const testComment = preparedComments[i];
+          const parent = preparedComments[i];
 
-          if(testComment.commentId == comment.parentId)
+          if(parent.commentId == comment.parentId)
           {
-            parent = testComment;
             parent.children[actionChild](comment);
             comment.parent = parent;
-            break;
+            return;
           }
         }
 
-        if(!parent)
-          return console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
+        console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
       }
       else
       {
