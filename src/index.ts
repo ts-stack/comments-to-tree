@@ -48,15 +48,14 @@ export class DefaultCommentsToTree
           if(testComment.commentId == comment.parentId)
           {
             parent = testComment;
+            parent.children[actionChild](comment);
+            comment.parent = parent;
             break;
           }
         }
 
         if(!parent)
           return console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
-
-        comment.parent = parent;
-        parent.children[actionChild](comment);
       }
       else
       {

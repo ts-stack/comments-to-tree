@@ -1,6 +1,6 @@
 {
   "name": "comments-to-tree",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A micro utility that converts a one-dimensional array with comments into a comments tree",
   "main": "dist/index",
   "typings": "src/index",

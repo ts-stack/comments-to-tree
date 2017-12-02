@@ -68,16 +68,22 @@ describe(`CommentsToTree`, () =>
     const result = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb, 'unshift', 'unshift');
 
     expect(result.length).toEqual(2);
+
     expect(result[0].commentId).toEqual(1);
-    expect(result[0].parentId).toEqual(0);
+    const comment1 = result[0];
+    expect(comment1.parentId).toEqual(0);
+    expect(comment1.children.length).toEqual(2);
+    expect(comment1.children[0].commentId).toEqual(2);
+    expect(comment1.children[1].commentId).toEqual(3);
+    expect(comment1.children[1].parentId).toEqual(1);
+    const comment2 = comment1.children[0];
+    expect(comment2.parentId).toEqual(1);
+    expect(comment2.children.length).toEqual(1);
+    expect(comment2.children[0].commentId).toEqual(5);
+    expect(comment2.children[0].parentId).toEqual(2);
+
     expect(result[1].commentId).toEqual(4);
     expect(result[1].parentId).toEqual(0);
-
-    expect(result[0].children.length).toEqual(2);
     expect(result[1].children.length).toEqual(0);
-    expect(result[0].children[0].commentId).toEqual(2);
-    expect(result[0].children[0].parentId).toEqual(1);
-    expect(result[0].children[1].commentId).toEqual(3);
-    expect(result[0].children[1].parentId).toEqual(1);
   });
 });
