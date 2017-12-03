@@ -41,9 +41,9 @@ Please do not be afraid =). It's easy to use this method.
 
 `allCommentsFromDb` - one-dimensional array of comments from the database (the array sorted in reverse order).
 
-`actionRoot` - the action you need to apply to insert a root comment. By default `unshift`.
+`actionRoot` - the action you need to apply to insert a root comment to comments tree. By default `unshift`.
 
-`actionChild` - the action you need to apply to insert a child comment. By default `unshift`.
+`actionChild` - the action you need to apply to insert a child comment to comments tree. By default `unshift`.
 
 ## Install
 

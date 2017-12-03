@@ -21,8 +21,8 @@ export class DefaultCommentsToTree
    * The array must be sorted in reverse order - at its beginning there are the most recent comments.
    * 
    * @param allCommentsFromDb One-dimensional array of comments from the database (the array sorted in reverse order).
-   * @param actionRoot The action you need to apply to insert a root comment.
-   * @param actionChild The action you need to apply to insert a child comment.
+   * @param actionRoot The action you need to apply to insert a root comment to comments tree.
+   * @param actionChild The action you need to apply to insert a child comment to comments tree.
    */
   static getTree<T extends DefaultCommentFromDb, U extends DefaultComment>
   (
