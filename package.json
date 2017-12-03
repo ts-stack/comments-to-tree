@@ -7,7 +7,6 @@
   "directories": {
     "lib": "src"
   },
-  "format": "es2015",
   "homepage": "https://github.com/KostyaTretyak/comments-to-tree",
   "repository": {
     "type": "git",

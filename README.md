@@ -51,9 +51,9 @@ Please do not be afraid =). It's easy to use this method.
 npm install comments-to-tree --save
 ```
 
-## Usage
+## Usage with TypeScript
 
-First of all, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected method `transform()`:
+First of all, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected static method `transform()`:
 
 ```ts
 import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from 'comments-to-tree';
@@ -98,4 +98,68 @@ const allCommentsFromDb: CommentFromDb[] =
 ];
 
 const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
+```
+
+## Usage with JavaScript
+
+Copy and paste code from [indes.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
+
+```js
+function getTree(allCommentsFromDb, actionRoot, actionChild)
+{
+  var actionRoot = actionRoot || 'unshift';
+  var actionChild = actionChild || 'unshift';
+  var preparedComments = transform(allCommentsFromDb);
+  var length = preparedComments.length;
+  var commentsTree = [];
+
+  preparedComments.forEach( (comment, index) =>
+  {
+    if(comment.parentId)
+    {
+      for(var i = index + 1; i < length; i++)
+      {
+        var parent = preparedComments[i];
+
+        if(parent.commentId == comment.parentId)
+        {
+          parent.children[actionChild](comment);
+          comment.parent = parent;
+          return;
+        }
+      }
+
+      console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
+    }
+    else
+    {
+      commentsTree[actionRoot](comment);
+    }      
+  });
+
+  return commentsTree;
+}
+
+function transform(allCommentsFromDb)
+{
+  return allCommentsFromDb.map(commentFromDb =>
+  {
+    return {
+      commentId: commentFromDb.commentId,
+      parentId: commentFromDb.parentId || 0,
+      children: []
+    };
+  });
+}
+
+var allCommentsFromDb =
+[
+  {commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5'},
+  {commentId: 4, someOtherPropertyFromDb: 'root comment4'},
+  {commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3'},
+  {commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2'},
+  {commentId: 1, someOtherPropertyFromDb: 'root comment1'},
+];
+
+var commentsTree = getTree(allCommentsFromDb);
 ```
