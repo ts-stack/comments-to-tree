@@ -102,7 +102,7 @@ const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsF
 
 ## Usage with JavaScript
 
-Copy and paste code from [indes.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
+Copy and paste code from [index.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
 
 ```js
 function getTree(allCommentsFromDb, actionRoot, actionChild)
