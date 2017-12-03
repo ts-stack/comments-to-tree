@@ -14,7 +14,7 @@ function getTree(allCommentsFromDb, actionRoot, actionChild)
   var length = preparedComments.length;
   var commentsTree = [];
 
-  preparedComments.forEach( (comment, index) =>
+  preparedComments.forEach( function(comment, index)
   {
     if(comment.parentId)
     {
@@ -49,7 +49,7 @@ function getTree(allCommentsFromDb, actionRoot, actionChild)
  */
 function transform(allCommentsFromDb)
 {
-  return allCommentsFromDb.map(commentFromDb =>
+  return allCommentsFromDb.map( function(commentFromDb)
   {
     return {
       commentId: commentFromDb.commentId,
