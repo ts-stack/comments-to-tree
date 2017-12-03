@@ -107,8 +107,8 @@ Copy and paste code from [index.js](/src/index.js). Then, rewrite the `transform
 ```js
 function getTree(allCommentsFromDb, actionRoot, actionChild)
 {
-  var actionRoot = actionRoot || 'unshift';
-  var actionChild = actionChild || 'unshift';
+  actionRoot = actionRoot || 'unshift';
+  actionChild = actionChild || 'unshift';
   var preparedComments = transform(allCommentsFromDb);
   var length = preparedComments.length;
   var commentsTree = [];

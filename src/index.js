@@ -8,8 +8,8 @@
  */
 function getTree(allCommentsFromDb, actionRoot, actionChild)
 {
-  var actionRoot = actionRoot || 'unshift';
-  var actionChild = actionChild || 'unshift';
+  actionRoot = actionRoot || 'unshift';
+  actionChild = actionChild || 'unshift';
   var preparedComments = transform(allCommentsFromDb);
   var length = preparedComments.length;
   var commentsTree = [];
