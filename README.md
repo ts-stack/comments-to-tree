@@ -45,15 +45,15 @@ Please do not be afraid =). It's easy to use this method.
 
 `actionChild` - the action you need to apply to insert a child comment to comments tree. By default `unshift`.
 
-## Install
+## Usage with TypeScript
+
+### Install
 
 ```bash
 npm install comments-to-tree --save
 ```
 
-## Usage with TypeScript
-
-First of all, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected static method `transform()`:
+Then, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected static method `transform()`:
 
 ```ts
 import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from 'comments-to-tree';
@@ -102,7 +102,13 @@ const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsF
 
 ## Usage with JavaScript
 
-Copy and paste code from [index.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
+No need to do:
+
+```bash
+npm install comments-to-tree --save
+```
+
+Just copy and paste code from [index.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
 
 ```js
 function getTree(allCommentsFromDb, actionRoot, actionChild)
