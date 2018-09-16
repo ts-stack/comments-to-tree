@@ -1,24 +1,19 @@
 import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from './index';
 
 
-interface CommentFromDb extends DefaultCommentFromDb
-{
+interface CommentFromDb extends DefaultCommentFromDb {
   // Additional property from database.
   someOtherPropertyFromDb: string;
 }
 
-interface Comment extends DefaultComment
-{
+interface Comment extends DefaultComment {
   // Additional transformed property.
   someOtherProperty: string;
 }
 
-class CommentsToTree extends DefaultCommentsToTree
-{
-  protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[]
-  {
-    return allCommentsFromDb.map(commentFromDb =>
-    {
+class CommentsToTree extends DefaultCommentsToTree {
+  protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[] {
+    return allCommentsFromDb.map(commentFromDb => {
       return {
         commentId: commentFromDb.commentId,
         parentId: commentFromDb.parentId || 0,
@@ -30,40 +25,28 @@ class CommentsToTree extends DefaultCommentsToTree
   }
 }
 
-describe(`CommentsToTree`, () =>
-{
-  it(`should not to throw call CommentsToTree.getTree([])`, () =>
-  {
-    expect( () => CommentsToTree.getTree([]) ).not.toThrow();
+describe(`CommentsToTree`, () => {
+  it(`should not to throw call CommentsToTree.getTree([])`, () => {
+    expect(() => CommentsToTree.getTree([])).not.toThrow();
   });
 
-  it(`should create properly structure`, () =>
-  {
-    const allCommentsFromDb: CommentFromDb[] =
-    [
-      {commentId: 1, someOtherPropertyFromDb: 'some content'}
-    ];
-
-    const expectedArray: Comment[] =
-    [
-      {commentId: 1, parentId: 0, children: [], someOtherProperty: 'some content'}
-    ];
-
+  it(`should create properly structure`, () => {
+    const allCommentsFromDb: CommentFromDb[] = [{ commentId: 1, someOtherPropertyFromDb: 'some content' }];
+    const expectedArray: Comment[] = [{ commentId: 1, parentId: 0, children: [], someOtherProperty: 'some content' }];
     const actualArray = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
 
     expect(JSON.stringify(actualArray)).toEqual(JSON.stringify(expectedArray));
   });
 
-  it(`should create tree comments`, () =>
-  {
+  it(`should create tree comments`, () => {
     const allCommentsFromDb: CommentFromDb[] =
-    [
-      {commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5'},
-      {commentId: 4, someOtherPropertyFromDb: 'root comment4'},
-      {commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3'},
-      {commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2'},
-      {commentId: 1, someOtherPropertyFromDb: 'root comment1'},
-    ];
+      [
+        { commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5' },
+        { commentId: 4, someOtherPropertyFromDb: 'root comment4' },
+        { commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3' },
+        { commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2' },
+        { commentId: 1, someOtherPropertyFromDb: 'root comment1' },
+      ];
 
     const result = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb, 'unshift', 'unshift');
 

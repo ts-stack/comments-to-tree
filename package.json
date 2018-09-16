@@ -24,9 +24,11 @@
   "devDependencies": {
     "@types/jasmine": "^2.8.2",
     "jasmine": "^2.8.0",
+    "tslint": "^5.11.0",
     "typescript": "^2.6.2"
   },
   "scripts": {
+    "compile": "./node_modules/.bin/tsc",
     "test": "./node_modules/.bin/jasmine"
   }
 }

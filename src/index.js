@@ -6,36 +6,28 @@
  * @param actionRoot The action you need to apply to insert a root comment to comments tree. Accepted values `unshift` or` push`.
  * @param actionChild The action you need to apply to insert a child comment to comments tree. Accepted values `unshift` or` push`.
  */
-function getTree(allCommentsFromDb, actionRoot, actionChild)
-{
+function getTree(allCommentsFromDb, actionRoot, actionChild) {
   actionRoot = actionRoot || 'unshift';
   actionChild = actionChild || 'unshift';
   var preparedComments = transform(allCommentsFromDb);
   var length = preparedComments.length;
   var commentsTree = [];
 
-  preparedComments.forEach( function(comment, index)
-  {
-    if(comment.parentId)
-    {
-      for(var i = index + 1; i < length; i++)
-      {
+  preparedComments.forEach(function (comment, index) {
+    if (comment.parentId) {
+      for (var i = index + 1; i < length; i++) {
         var parent = preparedComments[i];
 
-        if(parent.commentId == comment.parentId)
-        {
+        if (parent.commentId == comment.parentId) {
           parent.children[actionChild](comment);
           comment.parent = parent;
           return;
         }
       }
-
       console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
-    }
-    else
-    {
+    } else {
       commentsTree[actionRoot](comment);
-    }      
+    }
   });
 
   return commentsTree;
@@ -47,10 +39,8 @@ function getTree(allCommentsFromDb, actionRoot, actionChild)
  * 
  * @param allCommentsFromDb One-dimensional array of comments from the database (the array sorted in reverse order).
  */
-function transform(allCommentsFromDb)
-{
-  return allCommentsFromDb.map( function(commentFromDb)
-  {
+function transform(allCommentsFromDb) {
+  return allCommentsFromDb.map(function (commentFromDb) {
     return {
       commentId: commentFromDb.commentId,
       parentId: commentFromDb.parentId || 0,

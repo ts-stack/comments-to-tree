@@ -8,15 +8,13 @@ A micro utility that converts a one-dimensional array with comments into a comme
 
 ```ts
 // We need the comments come from a database with such properties, at least.
-interface DefaultCommentFromDb
-{
+interface DefaultCommentFromDb {
   commentId: number | string;
   parentId?: number | string;
 }
 
 // This utility will convert comments from the database to comments with this interface.
-interface DefaultComment
-{
+interface DefaultComment {
   commentId: number | string;
   children: this[];
   parentId?: number | string;
@@ -59,24 +57,19 @@ Then, you need to extends the defaults interfaces. After that, you need extends 
 import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from 'comments-to-tree';
 
 
-interface CommentFromDb extends DefaultCommentFromDb
-{
+interface CommentFromDb extends DefaultCommentFromDb {
   // Additional property from database.
   someOtherPropertyFromDb: string;
 }
 
-interface Comment extends DefaultComment
-{
+interface Comment extends DefaultComment {
   // Additional transformed property.
   someOtherProperty: string;
 }
 
-class CommentsToTree extends DefaultCommentsToTree
-{
-  protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[]
-  {
-    return allCommentsFromDb.map(commentFromDb =>
-    {
+class CommentsToTree extends DefaultCommentsToTree {
+  protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[] {
+    return allCommentsFromDb.map(commentFromDb => {
       return {
         commentId: commentFromDb.commentId,
         parentId: commentFromDb.parentId || 0,
@@ -111,34 +104,26 @@ npm install comments-to-tree --save
 Just copy and paste code from [index.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
 
 ```js
-function getTree(allCommentsFromDb, actionRoot, actionChild)
-{
+function getTree(allCommentsFromDb, actionRoot, actionChild) {
   actionRoot = actionRoot || 'unshift';
   actionChild = actionChild || 'unshift';
   var preparedComments = transform(allCommentsFromDb);
   var length = preparedComments.length;
   var commentsTree = [];
 
-  preparedComments.forEach( function(comment, index)
-  {
-    if(comment.parentId)
-    {
-      for(var i = index + 1; i < length; i++)
-      {
+  preparedComments.forEach( function(comment, index) {
+    if(comment.parentId) {
+      for(var i = index + 1; i < length; i++) {
         var parent = preparedComments[i];
 
-        if(parent.commentId == comment.parentId)
-        {
+        if(parent.commentId == comment.parentId) {
           parent.children[actionChild](comment);
           comment.parent = parent;
           return;
         }
       }
-
       console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
-    }
-    else
-    {
+    } else {
       commentsTree[actionRoot](comment);
     }      
   });
@@ -146,10 +131,8 @@ function getTree(allCommentsFromDb, actionRoot, actionChild)
   return commentsTree;
 }
 
-function transform(allCommentsFromDb)
-{
-  return allCommentsFromDb.map( function(commentFromDb)
-  {
+function transform(allCommentsFromDb) {
+  return allCommentsFromDb.map( function(commentFromDb) {
     return {
       commentId: commentFromDb.commentId,
       parentId: commentFromDb.parentId || 0,
