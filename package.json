@@ -7,6 +7,10 @@
   "directories": {
     "lib": "src"
   },
+  "scripts": {
+    "compile": "tsc",
+    "test": "jest"
+  },
   "homepage": "https://github.com/KostyaTretyak/comments-to-tree",
   "repository": {
     "type": "git",
@@ -22,13 +26,13 @@
   "author": "Костя Третяк <ktretiak.in.ua@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/jasmine": "^2.8.2",
-    "jasmine": "^2.8.0",
-    "tslint": "^5.11.0",
-    "typescript": "^2.6.2"
-  },
-  "scripts": {
-    "compile": "./node_modules/.bin/tsc",
-    "test": "./node_modules/.bin/jasmine"
+    "@types/jest": "^25.2.1",
+    "jest": "^25.3.0",
+    "prettier": "^2.0.4",
+    "ts-jest": "^25.4.0",
+    "tslint": "^6.1.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "typescript": "^3.8.3"
   }
 }

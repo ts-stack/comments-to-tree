@@ -1,31 +1,31 @@
-import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from './index';
-
-
-interface CommentFromDb extends DefaultCommentFromDb {
-  // Additional property from database.
-  someOtherPropertyFromDb: string;
-}
-
-interface Comment extends DefaultComment {
-  // Additional transformed property.
-  someOtherProperty: string;
-}
-
-class CommentsToTree extends DefaultCommentsToTree {
-  protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[] {
-    return allCommentsFromDb.map(commentFromDb => {
-      return {
-        commentId: commentFromDb.commentId,
-        parentId: commentFromDb.parentId || 0,
-        children: [],
-        // Additional property.
-        someOtherProperty: commentFromDb.someOtherPropertyFromDb
-      };
-    });
-  }
-}
+import { DefaultCommentsToTree } from './main';
+import { DefaultCommentFromDb, DefaultComment } from './types';
 
 describe(`CommentsToTree`, () => {
+  interface CommentFromDb extends DefaultCommentFromDb {
+    // Additional property from database.
+    someOtherPropertyFromDb: string;
+  }
+
+  interface Comment extends DefaultComment {
+    // Additional transformed property.
+    someOtherProperty: string;
+  }
+
+  class CommentsToTree extends DefaultCommentsToTree {
+    protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[] {
+      return allCommentsFromDb.map((commentFromDb) => {
+        return {
+          commentId: commentFromDb.commentId,
+          parentId: commentFromDb.parentId || 0,
+          children: [],
+          // Additional property.
+          someOtherProperty: commentFromDb.someOtherPropertyFromDb,
+        };
+      });
+    }
+  }
+
   it(`should not to throw call CommentsToTree.getTree([])`, () => {
     expect(() => CommentsToTree.getTree([])).not.toThrow();
   });
@@ -39,14 +39,13 @@ describe(`CommentsToTree`, () => {
   });
 
   it(`should create tree comments`, () => {
-    const allCommentsFromDb: CommentFromDb[] =
-      [
-        { commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5' },
-        { commentId: 4, someOtherPropertyFromDb: 'root comment4' },
-        { commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3' },
-        { commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2' },
-        { commentId: 1, someOtherPropertyFromDb: 'root comment1' },
-      ];
+    const allCommentsFromDb: CommentFromDb[] = [
+      { commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5' },
+      { commentId: 4, someOtherPropertyFromDb: 'root comment4' },
+      { commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3' },
+      { commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2' },
+      { commentId: 1, someOtherPropertyFromDb: 'root comment1' },
+    ];
 
     const result = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb, 'unshift', 'unshift');
 

@@ -1,16 +1,4 @@
-export interface DefaultCommentFromDb {
-  commentId: number | string;
-  parentId?: number | string;
-}
-
-export interface DefaultComment {
-  commentId: number | string;
-  children: this[];
-  parentId?: number | string;
-  parent?: this;
-}
-
-export type ActionArray = 'unshift' | 'push';
+import { DefaultCommentFromDb, DefaultComment, ActionArray } from './types';
 
 export class DefaultCommentsToTree {
   /**
@@ -56,11 +44,11 @@ export class DefaultCommentsToTree {
    * to comments in a one-dimensional array that have some additional properties.
    */
   protected static transform(allCommentsFromDb: DefaultCommentFromDb[]): any[] {
-    return allCommentsFromDb.map(commentFromDb => {
+    return allCommentsFromDb.map((commentFromDb) => {
       return {
         commentId: commentFromDb.commentId,
         parentId: commentFromDb.parentId || 0,
-        children: []
+        children: [],
       };
     });
   }
