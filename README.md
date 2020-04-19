@@ -101,7 +101,7 @@ No need to do:
 npm install comments-to-tree --save
 ```
 
-Just copy and paste code from [index.js](/src/index.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
+Just copy and paste code from [index.js](/src/index-js.js). Then, rewrite the `transform()` function to your needs, after which you can call the `getTree()`:
 
 ```js
 function getTree(allCommentsFromDb, actionRoot, actionChild) {

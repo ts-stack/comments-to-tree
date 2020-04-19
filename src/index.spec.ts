@@ -1,5 +1,4 @@
-import { DefaultCommentsToTree } from './main';
-import { DefaultCommentFromDb, DefaultComment } from './types';
+import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from './';
 
 describe(`CommentsToTree`, () => {
   interface CommentFromDb extends DefaultCommentFromDb {
