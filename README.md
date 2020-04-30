@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/KostyaTretyak/comments-to-tree.svg?branch=master)](https://travis-ci.org/KostyaTretyak/comments-to-tree)
-
 # What is this for?
 
 A micro utility that converts a one-dimensional array with comments into a comments tree.
@@ -48,13 +46,13 @@ Please do not be afraid =). It's easy to use this method.
 ### Install
 
 ```bash
-npm install comments-to-tree --save
+npm install @ts-stack/comments-to-tree --save
 ```
 
 Then, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected static method `transform()`:
 
 ```ts
-import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from 'comments-to-tree';
+import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from '@ts-stack/comments-to-tree';
 
 
 interface CommentFromDb extends DefaultCommentFromDb {

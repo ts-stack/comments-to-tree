@@ -42,7 +42,7 @@ export class DefaultCommentsToTree {
           }
         }
 
-        console.warn(`For comment with id: %s, not found parent with id: %s`, comment.commentId, comment.parentId);
+        console.warn(`For comment with id: ${comment.commentId}, not found parent with id: ${comment.parentId}`);
       } else {
         commentsTree[actionRoot](comment);
       }
