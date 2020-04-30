@@ -1,4 +1,4 @@
-import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from './';
+import { CommentsToTree, DefaultCommentFromDb, DefaultComment } from './main';
 
 describe(`CommentsToTree`, () => {
   interface CommentFromDb extends DefaultCommentFromDb {
@@ -6,35 +6,8 @@ describe(`CommentsToTree`, () => {
     someOtherPropertyFromDb: string;
   }
 
-  interface Comment extends DefaultComment {
-    // Additional transformed property.
-    someOtherProperty: string;
-  }
-
-  class CommentsToTree extends DefaultCommentsToTree {
-    protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[] {
-      return allCommentsFromDb.map((commentFromDb) => {
-        return {
-          commentId: commentFromDb.commentId,
-          parentId: commentFromDb.parentId || 0,
-          children: [],
-          // Additional property.
-          someOtherProperty: commentFromDb.someOtherPropertyFromDb,
-        };
-      });
-    }
-  }
-
   it(`should not to throw call CommentsToTree.getTree([])`, () => {
     expect(() => CommentsToTree.getTree([])).not.toThrow();
-  });
-
-  it(`should create properly structure`, () => {
-    const allCommentsFromDb: CommentFromDb[] = [{ commentId: 1, someOtherPropertyFromDb: 'some content' }];
-    const expectedArray: Comment[] = [{ commentId: 1, parentId: 0, children: [], someOtherProperty: 'some content' }];
-    const actualArray = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
-
-    expect(JSON.stringify(actualArray)).toEqual(JSON.stringify(expectedArray));
   });
 
   it(`should create tree comments`, () => {
@@ -46,13 +19,13 @@ describe(`CommentsToTree`, () => {
       { commentId: 1, someOtherPropertyFromDb: 'root comment1' },
     ];
 
-    const result = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb, 'unshift', 'unshift');
+    const result = CommentsToTree.getTree<CommentFromDb>(allCommentsFromDb, 'unshift', 'unshift');
 
     expect(result.length).toEqual(2);
 
     expect(result[0].commentId).toEqual(1);
     const comment1 = result[0];
-    expect(comment1.parentId).toEqual(0);
+    expect(comment1.parentId).toBeUndefined();
     expect(comment1.children.length).toEqual(2);
     expect(comment1.children[0].commentId).toEqual(2);
     expect(comment1.children[1].commentId).toEqual(3);
@@ -64,7 +37,7 @@ describe(`CommentsToTree`, () => {
     expect(comment2.children[0].parentId).toEqual(2);
 
     expect(result[1].commentId).toEqual(4);
-    expect(result[1].parentId).toEqual(0);
+    expect(result[1].parentId).toBeUndefined();
     expect(result[1].children.length).toEqual(0);
   });
 });

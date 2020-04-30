@@ -23,12 +23,11 @@ interface DefaultComment {
 This utility has one public method:
 
 ```ts
-static getTree<T extends DefaultCommentFromDb, U extends DefaultComment>
-(
+static getTree<T extends DefaultCommentFromDb>(
   allCommentsFromDb: T[],
-  actionRoot: 'unshift' | 'push',
-  actionChild: 'unshift' | 'push'
-): U[];
+  actionRoot: ActionArray = 'unshift',
+  actionChild: ActionArray = 'unshift'
+)
 ```
 
 Please do not be afraid =). It's easy to use this method.
@@ -41,52 +40,32 @@ Please do not be afraid =). It's easy to use this method.
 
 `actionChild` - the action you need to apply to insert a child comment to comments tree. By default `unshift`.
 
-## Usage with TypeScript
-
-### Install
+## Install
 
 ```bash
 npm install @ts-stack/comments-to-tree --save
 ```
 
-Then, you need to extends the defaults interfaces. After that, you need extends `DefaultCommentsToTree` to override the protected static method `transform()`:
+## Usage
+
+You need just implement `DefaultCommentFromDb` in your comment class:
 
 ```ts
-import { DefaultCommentsToTree, DefaultCommentFromDb, DefaultComment } from '@ts-stack/comments-to-tree';
+import { DefaultCommentFromDb } from '@ts-stack/comments-to-tree';
 
-
-interface CommentFromDb extends DefaultCommentFromDb {
-  // Additional property from database.
-  someOtherPropertyFromDb: string;
+class MyCommentFromDb implements DefaultCommentFromDb {
+  commentId: number;
+  parentId?: number;
+  someOtherPropertyFromDb?: string;
 }
 
-interface Comment extends DefaultComment {
-  // Additional transformed property.
-  someOtherProperty: string;
-}
-
-class CommentsToTree extends DefaultCommentsToTree {
-  protected static transform(allCommentsFromDb: CommentFromDb[]): Comment[] {
-    return allCommentsFromDb.map(commentFromDb => {
-      return {
-        commentId: commentFromDb.commentId,
-        parentId: commentFromDb.parentId || 0,
-        children: [],
-        // Additional property.
-        someOtherProperty: commentFromDb.someOtherPropertyFromDb
-      };
-    });
-  }
-}
-
-const allCommentsFromDb: CommentFromDb[] =
-[
-  {commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5'},
-  {commentId: 4, someOtherPropertyFromDb: 'root comment4'},
-  {commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3'},
-  {commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2'},
-  {commentId: 1, someOtherPropertyFromDb: 'root comment1'},
+const allCommentsFromDb: MyCommentFromDb[] = [
+  { commentId: 5, parentId: 2, someOtherPropertyFromDb: 'comment5' },
+  { commentId: 4, someOtherPropertyFromDb: 'root comment4' },
+  { commentId: 3, parentId: 1, someOtherPropertyFromDb: 'comment3' },
+  { commentId: 2, parentId: 1, someOtherPropertyFromDb: 'comment2' },
+  { commentId: 1, someOtherPropertyFromDb: 'root comment1' },
 ];
 
-const commentsTree = CommentsToTree.getTree<CommentFromDb, Comment>(allCommentsFromDb);
+const commentsTree = CommentsToTree.getTree<MyCommentFromDb>(allCommentsFromDb);
 ```
