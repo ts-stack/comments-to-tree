@@ -29,9 +29,7 @@ export class CommentsToTree {
     const length = allCommentsFromDb.length;
     const commentsTree: Comment<T>[] = [];
 
-    allCommentsFromDb.forEach((comment: Comment<T>) => {
-      comment.children = comment.children || [];
-    });
+    allCommentsFromDb.forEach((comment: Comment<T>) => (comment.children = []));
 
     allCommentsFromDb.forEach((comment, index) => {
       if (comment.parentId) {
