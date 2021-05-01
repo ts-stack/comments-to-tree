@@ -1,5 +1,5 @@
 {
-  "name": "@ts-stack/comments-to-tree",
+  "name": "no-name",
   "version": "1.2.0",
   "description": "A micro utility that converts a one-dimensional array with comments into a comments tree",
   "main": "dist/index",

@@ -40,18 +40,12 @@ Please do not be afraid =). It's easy to use this method.
 
 `actionChild` - the action you need to apply to insert a child comment to comments tree. By default `unshift`.
 
-## Install
-
-```bash
-npm install @ts-stack/comments-to-tree --save
-```
-
 ## Usage
 
-You need just implement `DefaultCommentFromDb` in your comment class:
+Copy `main.ts` from this repository. You need just implement `DefaultCommentFromDb` in your comment class:
 
 ```ts
-import { DefaultCommentFromDb } from '@ts-stack/comments-to-tree';
+import { DefaultCommentFromDb } from './main';
 
 class MyCommentFromDb implements DefaultCommentFromDb {
   commentId: number;
